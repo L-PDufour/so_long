@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ldufour </var/spool/mail/ldufour>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/10/05 09:42:55 by ldufour           #+#    #+#              #
+#    Updated: 2023/10/05 14:47:43 by ldufour          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libft.a
 
 RM = rm -f
@@ -5,8 +17,6 @@ RM = rm -f
 CFLAGS =  -Wall -Wextra -Werror -g
 
 CC = gcc
-
-GNL = get_next_line/
 
 .PHONY: all clean fclean re bonus
 
@@ -27,6 +37,7 @@ SRC = ft_atoi.c \
 	ft_putchar_fd.c \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
+	ft_puterror.c \
 	ft_putstr_fd.c \
 	ft_split.c \
 	ft_strcat.c \
@@ -45,8 +56,7 @@ SRC = ft_atoi.c \
 	ft_substr.c \
 	ft_tolower.c \
 	ft_toupper.c \
-	get_next_line/get_next_line.c \
-	get_next_line/get_next_line_utils.c \
+	get_next_line_bonus.c \
 
 SRC_BONUS = ft_lstnew.c \
 	ft_lstadd_back.c \
@@ -60,25 +70,17 @@ SRC_BONUS = ft_lstnew.c \
 
 OBJ = $(SRC:.c=.o)
 
-GNL_OBJS = $(GNL)get_next_line.o \
-	$(GNL)get_next_line_utils.o \
-
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
-all: gnl $(NAME)
-
-gnl:
-	@$(MAKE) -C $(GNL)
+all: $(NAME)
 
 $(NAME) : $(OBJ)
-	@ar rcs $(NAME) $(OBJ) $(GNL_OBJS)
-
+	@ar rcs $(NAME) $(OBJ) 
 bonus: $(OBJ_BONUS)
 	@ar rcs $(NAME) $(OBJ_BONUS)
 
 clean:
 	@$(RM) $(OBJ) $(OBJ_BONUS)
-	@$(MAKE) -C $(GNL) fclean
 fclean: clean
 	@$(RM) $(NAME) 
 

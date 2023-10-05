@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leon <leon@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 09:49:41 by leon              #+#    #+#             */
-/*   Updated: 2023/09/20 07:28:18 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/04/09 12:41:16 by leon             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-char	*extract_line(char *str)
+static char	*ft_free(char **str)
+{
+	free(*str);
+	*str = NULL;
+	return (NULL);
+}
+
+static char	*extract_line(char *str)
 {
 	char	*line;
 	int		i;
@@ -38,7 +45,7 @@ char	*extract_line(char *str)
 	return (line);
 }
 
-char	*fill_stash(char *stash, int fd)
+static char	*fill_stash(char *stash, int fd)
 {
 	char	*buffer;
 	int		read_bytes;
@@ -63,7 +70,7 @@ char	*fill_stash(char *stash, int fd)
 	return (stash);
 }
 
-char	*clean_stash(char *str)
+static char	*clean_stash(char *str)
 {
 	int		i;
 	int		j;
@@ -89,18 +96,17 @@ char	*clean_stash(char *str)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*stash;
+	static char	*stash[1023];
 
-	stash = NULL;
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1023 || BUFFER_SIZE <= 0)
 		return (NULL);
-	stash = fill_stash(stash, fd);
-	if (!stash)
+	stash[fd] = fill_stash(stash[fd], fd);
+	if (!stash[fd])
 		return (NULL);
-	line = extract_line(stash);
+	line = extract_line(stash[fd]);
 	if (!line)
-		return (ft_free(&stash));
-	stash = clean_stash(stash);
+		return (ft_free(&stash[fd]));
+	stash[fd] = clean_stash(stash[fd]);
 	return (line);
 }

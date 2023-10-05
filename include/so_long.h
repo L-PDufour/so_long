@@ -16,9 +16,12 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
 # include "../lib/MLX42/include/MLX42/MLX42.h"
+
+void	file_validation(const char *argv);
 
 #define WIDTH 512
 #define HEIGHT 512

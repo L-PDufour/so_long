@@ -6,15 +6,22 @@
 /*   By: ldufour <marvin@42quebec.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:34:45 by ldufour           #+#    #+#             */
-/*   Updated: 2023/03/06 08:35:01 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/05 14:48:54 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <errno.h>
+# include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 typedef struct s_list
 {
@@ -30,8 +37,8 @@ int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
 char				*ft_itoa(int n);
-void				ft_lstadd_back(t_list **alst, t_list *new);
-void				ft_lstadd_front(t_list **alst, t_list *new);
+// void				ft_lstadd_back(t_list **alst, t_list *new);
+// void				ft_lstadd_front(t_list **alst, t_list *new);
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
@@ -54,7 +61,7 @@ char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strdup(const char *s);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
-char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin(char *s1, char *s2);
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlen(const char *s);
@@ -67,5 +74,7 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
+void				ft_puterror(int function);
+char				*get_next_line(int fd);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldufour </var/spool/mail/ldufour>          +#+  +:+       +#+        */
+/*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/05 15:11:01 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/05 15:14:20 by ldufour          ###   ########.fr       */
+/*   Created: 2023/10/06 08:44:20 by ldufour           #+#    #+#             */
+/*   Updated: 2023/10/06 08:44:20 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	file_validation(const char *argv)
 	{
 		line = get_next_line(map);
 		if (line == NULL)
-		{
 			break ;
-		}
 		printf("%s", line);
 		free(line);
 	}

@@ -20,11 +20,9 @@ $(NAME): $(OBJS)
 		cd libft && make
 		$(CC) $(OBJS) $(LIBFT) $(LIBS) $(HEADERS) -o $(NAME)
 
-# all: $(NAME)
-
 clean:	
 		@cd libft && make clean
-		@rm -rf $(OBJB)
+		@rm -rf $(OBJS)
 		@rm -rf $(LIBMLX)/build 
 
 fclean:	clean

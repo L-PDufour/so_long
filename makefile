@@ -1,5 +1,5 @@
 NAME	= so_long
-# CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast 
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g 
 
 LIBMLX	:= ./lib/MLX42
 

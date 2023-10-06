@@ -6,7 +6,7 @@
 #    By: ldufour </var/spool/mail/ldufour>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/05 09:42:55 by ldufour           #+#    #+#              #
-#    Updated: 2023/10/05 14:47:43 by ldufour          ###   ########.fr        #
+#    Updated: 2023/10/06 10:36:39 by ldufour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,8 +57,7 @@ SRC = ft_atoi.c \
 	ft_tolower.c \
 	ft_toupper.c \
 	get_next_line_bonus.c \
-
-SRC_BONUS = ft_lstnew.c \
+	ft_lstnew.c \
 	ft_lstadd_back.c \
 	ft_lstadd_front.c \
 	ft_lstclear.c \
@@ -69,8 +68,6 @@ SRC_BONUS = ft_lstnew.c \
 	ft_lstsize.c \
 
 OBJ = $(SRC:.c=.o)
-
-OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
 all: $(NAME)
 

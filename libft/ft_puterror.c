@@ -12,8 +12,10 @@
 
 #include "libft.h"
 
-void	ft_puterror(int function)
+void	ft_puterror(int function, char *str)
 {
+	if (!str)
+	 str = strerror(errno);
 	if (function == -1)
-		fprintf(stderr, "Error: %s\n", strerror(errno));
+		fprintf(stderr, "Error: %s\n", str);
 }

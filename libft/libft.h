@@ -75,7 +75,7 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
-void				ft_puterror(int function);
+void				ft_puterror(int function, char *str);
 char				*get_next_line(int fd);
 
 #endif

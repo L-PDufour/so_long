@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build pipex",
+            "type": "shell",
+            "command": "make all",
+            "group": {
+                "kind": "build",
+                "isDefault": true  // Remove the comma after "true"
+            }
+        }
+    ],
+    "configurations": [
+        {
+            "name": "(lldb) Lancer",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/Users/ldufour/Documents/so_long/so_long",
+            "args": ["../maps/1.ber"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}" ,
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        }
+    ]
+}

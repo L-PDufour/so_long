@@ -36,7 +36,7 @@ typedef struct s_map
 	// int		*pids_bonus;
 }			t_map;
 
-char		**file_validation(const char *argv);
+char		**file_validation(char *argv);
 
 # define WIDTH 512
 # define HEIGHT 512

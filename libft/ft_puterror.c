@@ -15,7 +15,7 @@
 void	ft_puterror(int function, char *str)
 {
 	if (!str)
-	 str = strerror(errno);
+		str = strerror(errno);
 	if (function == -1)
 		fprintf(stderr, "Error: %s\n", str);
 }

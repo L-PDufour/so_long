@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 08:44:02 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/17 08:12:26 by ldufour          ###   ########.fr       */
+/*   Created: 2023/10/18 08:08:32 by ldufour           #+#    #+#             */
+/*   Updated: 2023/10/18 08:08:32 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+#include <stdlib.h>
 
-t_map	*init_struct(void)
+void	free_map_struct(t_map *map)
 {
-	static t_map	*map;
+	int	i;
 
-	map = NULL;
-	if (!map)
+	i = 0;
+	if (map->map_array[i] != NULL)
 	{
-		map = (t_map *)ft_calloc(1, sizeof(t_map));
-		if (!map)
+		while (map->map_array[i] != NULL)
 		{
-			fprintf(stderr, "Malloc failure\n");
-			exit(EXIT_FAILURE);
+			free(map->map_array[i]);
+			i++;
 		}
-		ft_bzero(map, sizeof(*map));
-		map->map_array = NULL;
+		free(map->map_array);
 	}
-	return (map);
+	free(map);
 }
-int	main(int argc, char *argv[])
-{
-	t_map	*map;
 
-	map = init_struct();
-	if (argc != 2)
-		printf("Invalid arguments\n");
-	file_validation(argv[1], map);
+void	exit_map_at_error(char *str, t_map *map)
+{
+	printf("Error\n");
+	if (str)
+		printf("%s\n", str);
 	free_map_struct(map);
-	return (0);
+	exit(EXIT_FAILURE);
 }

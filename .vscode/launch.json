@@ -1,4 +1,4 @@
-{
+     {
     "version": "2.0.0",
     "tasks": [
         {
@@ -17,7 +17,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/Users/ldufour/Documents/so_long/so_long",
-            "args": ["../maps/1.ber"],
+            "args": ["/Users/ldufour/Documents/so_long/maps/1.ber"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}" ,
             "environment": [],

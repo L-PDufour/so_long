@@ -20,7 +20,6 @@ char	*ft_strdup(const char *s)
 
 	if (!s)
 		return (NULL);
-	ptr = NULL;
 	len = 0;
 	while (s[len])
 	{
@@ -35,6 +34,6 @@ char	*ft_strdup(const char *s)
 		ptr[i] = s[i];
 		i++;
 	}
-	ptr[i] = '\0';
+	// ptr[i] = '\0';
 	return (ptr);
 }

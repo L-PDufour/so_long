@@ -12,32 +12,34 @@
 
 #include "../include/so_long.h"
 
-t_map	*init_struct(void)
+t_game	*init_struct(void)
 {
-	static t_map	*map;
+	static t_game	*game;
 
-	map = NULL;
-	if (!map)
+	game = NULL;
+	if (!game)
 	{
-		map = (t_map *)ft_calloc(1, sizeof(t_map));
-		if (!map)
+		game = (t_game *)ft_calloc(1, sizeof(t_game));
+		if (!game)
 		{
 			fprintf(stderr, "Malloc failure\n");
 			exit(EXIT_FAILURE);
 		}
-		ft_bzero(map, sizeof(*map));
-		map->map_array = NULL;
+		ft_bzero(game, sizeof(*game));
+		game->map_array = NULL;
+		// game->tmp = ft_calloc(1, BUFFER_SIZE);
+		game->tmp = NULL;
 	}
-	return (map);
+	return (game);
 }
 int	main(int argc, char *argv[])
 {
-	t_map	*map;
+	t_game	*game;
 
-	map = init_struct();
+	game = init_struct();
 	if (argc != 2)
 		printf("Invalid arguments\n");
-	file_validation(argv[1], map);
-	free_map_struct(map);
+	file_validation(argv[1], game);
+	free_game_struct(game);
 	return (0);
 }

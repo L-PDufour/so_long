@@ -21,17 +21,25 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_map
+typedef struct s_position
+{
+	int x;
+	int y;
+} t_position;	
+
+typedef struct s_game
 {
 	char	**map_array;
+	char *tmp;
 	int		character;
 	int		collectible;
 	int		exit;
-}			t_map;
+	t_position	map_coordinates;
+}			t_game;
 
-void		file_validation(char *argv, t_map *map);
-void		free_map_struct(t_map *map);
-void		exit_map_at_error(char *str, t_map *map);
+void		file_validation(char *argv, t_game *game);
+void		free_game_struct(t_game *game);
+void		exit_game_at_error(char *str, t_game *game);
 
 # define WIDTH 512
 # define HEIGHT 512

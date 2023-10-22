@@ -6,55 +6,62 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 08:44:20 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/19 12:38:18 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/20 09:50:36 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-if (game->map_array[j][i] == EXIT )
-	game->exit++;
-if (game->map_array[j][i] == COLLECTIBLE )
-	game->collectible++;
-if (game->map_array[j][i] == PLAYER )
-	game->player++;
-else if (game->map_array[j][i] != WALL || game->map_array[j][i] != FLOOR )
-	game->invalid_characters++;
-
-static void	map_valid_character(t_game *game)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	*map_character;
-
-	map_character = "10CPE\n";
-	j = -1;
-	game->map_coordinates.x = ft_strlen(game->map_array[0]) ;
-	printf("len = %i\n", game->map_coordinates.x);
-	while (game->map_array[++j])
-	{
-		i = 0;
-		while (game->map_array[j][i] != '\0')
-		{
-			k = 0;
-			while (map_character[k] != '\0' && (game->map_array[j][i] != '\n'
-					|| game->map_array[j][i] != '\0'))
-			{
-				if (game->map_array[j][i] != map_character[k])
-					k++;
-				else if (game->map_array[j][i] == map_character[k])
-					break ;
-			}
-			if (map_character[k] == '\0')
-				exit_game_at_error("Invalid characters found", game);
-			i++;
-		}
-		printf("len = %d and i = %d\n", game->map_coordinates.x, i);
-		if (i != game->map_coordinates.x)
-			exit_game_at_error("Map not rectangular", game);
-	}
-}
+// if (game->map_array[j][i] == EXIT )
+// 	game->exit++;
+// if (game->map_array[j][i] == COLLECTIBLE )
+// 	game->collectible++;
+// if (game->map_array[j][i] == PLAYER )
+// 	game->player++;
+// else if (game->map_array[j][i] != WALL || game->map_array[j][i] != FLOOR )
+// 	game->invalid_characters++;
+//
+// static void	map_valid_character(t_game *game)
+// {
+// 	int	i;
+// 	int	j;
+//
+// 	// int		k;
+// 	// char	*map_character;
+// 	// map_character = "10CPE\n";
+// 	j = -1;
+// 	game->map_coordinates.x = ft_strlen(game->map_array[0]);
+// 	// printf("len = %i\n", game->map_coordinates.y);
+// 	while (game->map_array[++j])
+// 	{
+// 		i = 0;
+// 		while (game->map_array[j][i] != '\0')
+// 		{
+// 			if (game->map_array[0][i] != WALL
+// 				&& game->map_array[game->map_coordinates.y][i] != WALL
+// 				&& game->map_array[j][0] != WALL
+// 				&& game->map_array[j][game->map_coordinates.x] != WALL)
+// 			{
+// 				printf("Map is not whaled\n");
+// 				break ;
+// 			}
+// 			// while (map_character[k] != '\0' && (game->map_array[j][i] != '\n'
+// 			// 		|| game->map_array[j][i] != '\0'))
+// 			// {
+// 			// 	if (game->map_array[j][i] != map_character[k])
+// 			// 		k++;
+// 			// 	else if (game->map_array[j][i] == map_character[k])
+// 			// 		break ;
+// 			// }
+// 			// if (map_character[k] == '\0')
+// 			// 	exit_game_at_error("Invalid characters found", game);
+// 			i++;
+// 		}
+// 		// printf("len = %d and i = %d\n", game->map_coordinates.x, i);
+// 		if (i != game->map_coordinates.x)
+// 			exit_game_at_error("Map not rectangular", game);
+// 	}
+// }
 
 // static void	map_is_rectangle(t_game *game)
 // {
@@ -152,6 +159,42 @@ static int	map_path_check(char *filename, t_game *game)
 	}
 	return (map_path);
 }
+void	check_for_characters(t_game *game, int i)
+{
+	if (game->tmp[i] == PLAYER)
+		game->character++;
+	else if (game->tmp[i] == COLLECTIBLE)
+		game->collectible++;
+	else if (game->tmp[i] == EXIT)
+		game->exit++;
+	else if (game->tmp[i] != '\n' && game->tmp[i] != '1' && game->tmp[i] != '0')
+	{
+		printf("%c\n", game->tmp[i]);
+		exit_game_at_error("Invalid characters", game);
+	}
+}
+void	parsing_for_characters(t_game *game)
+{
+	int	i;
+	int	j;
+	int	newline_counter;
+
+	i = 0;
+	newline_counter = game->map_coordinates.y;
+	while (game->tmp[i] != '\0')
+	{
+		check_for_characters(game, i); // probleme parce que je skip avec i + j
+		j = 0;
+		while (game->tmp[i + j] != '\n' && newline_counter != 0)
+		{
+			j++;
+		}
+		if (j != game->map_coordinates.x)
+			exit_game_at_error("Map is not rectangular", game);
+		i = i + j;
+		i++;
+	}
+}
 
 void	file_validation(char *argv, t_game *game)
 {
@@ -171,19 +214,29 @@ void	file_validation(char *argv, t_game *game)
 		if (line == NULL)
 			break ;
 		game->tmp = ft_strjoin(game->tmp, line);
+		if (game->map_coordinates.x == 0)
+		{
+			game->map_coordinates.x = ft_strlen(game->tmp) - 1;
+			printf("x = %i\n", game->map_coordinates.x);
+		}
 		game->map_coordinates.y++;
 		free(line);
 	}
-	game->map_array = ft_split(game->tmp, '\n');
-	if (!game->map_array)
+	game->map_coordinates.y--;
+	if (!game->tmp)
 		exit_game_at_error("Empty file", game);
+	parsing_for_characters(game);
+	// printf("%s, %zu\n", game->tmp, ft_strlen(game->tmp));
+	game->map_array = ft_split(game->tmp, '\n');
+	// if (!game->map_array)
+	// exit_game_at_error("Empty file", game);
 	// i = 0;
 	// while (game->map_array[i] != NULL)
 	// {
 	// 	printf("%s", game->map_array[i]);
 	// 	i++;
 	// }
-	map_valid_character(game);
+	// map_valid_character(game);
 	// map_is_rectangle(game);
 	// map_is_walled(game);
 	close(map_fd);

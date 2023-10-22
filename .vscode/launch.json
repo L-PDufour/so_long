@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/home/ldufour/Documents/so_long/so_long",
-            "args": ["/home/ldufour/Documents/so_long/maps/empty.ber"],
+            "args": ["/home/ldufour/Documents/so_long/maps/valid.ber"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

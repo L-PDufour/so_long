@@ -36,9 +36,10 @@ static int	map_path_check(char *filename, t_game *game)
 void	file_validation(char *argv, t_game *game)
 {
 	char	*line;
+	char *tmp;
 	int		map_fd;
 
-	// int		i;
+	tmp = NULL;
 	map_fd = map_path_check(argv, game);
 	while (1)
 	{
@@ -56,7 +57,10 @@ void	file_validation(char *argv, t_game *game)
 	game->map_coordinates.y--;
 	if (!game->tmp)
 		exit_game_at_error("Empty file", game);
-	parsing_for_characters(game);
-	game->map_array = ft_split(game->tmp, '\n');
+	parsing_characters(game);
+	tmp = ft_strdup(game->tmp);
+	game->map_array = ft_split(tmp, '\n');
+	free(tmp);
+	flood_fill_init(game);
 	close(map_fd);
 }

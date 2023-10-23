@@ -13,21 +13,29 @@
 #include "../include/so_long.h"
 #include <stdlib.h>
 
+static void	free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i] != NULL)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
+
 void	free_game_struct(t_game *game)
 {
 	int	i;
 
 	i = 0;
 	if (game->map_array)
-	{
-		while (game->map_array[i] != NULL)
-		{
-			free(game->map_array[i]);
-			i++;
-		}
-	}
-	free(game->map_array);
-	if(game->tmp != NULL)
+		free_array(game->map_array);
+	if (game->tmp_map)
+		free_array(game->tmp_map);
+	if (game->tmp != NULL)
 		free(game->tmp);
 	free(game);
 }

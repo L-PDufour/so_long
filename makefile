@@ -11,8 +11,7 @@
 # **************************************************************************** #
 
 NAME	= so_long
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g 
-
+CFLAGS	:= -Wunreachable-code -Ofast -g 
 LIBMLX	:= ./lib/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include

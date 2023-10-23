@@ -23,23 +23,24 @@
 
 typedef struct s_position
 {
-	int x;
-	int y;
-} t_position;	
+	int			x;
+	int			y;
+}				t_position;
 
 typedef struct s_game
 {
-	char	**map_array;
-	char *tmp;
-	int		character;
-	int		collectible;
-	int		exit;
+	char		**map_array;
+	char		*tmp;
+	int			character;
+	int			collectible;
+	int			exit;
 	t_position	map_coordinates;
-}			t_game;
+}				t_game;
 
-void		file_validation(char *argv, t_game *game);
-void		free_game_struct(t_game *game);
-void		exit_game_at_error(char *str, t_game *game);
+void			file_validation(char *argv, t_game *game);
+void			free_game_struct(t_game *game);
+void			exit_game_at_error(char *str, t_game *game);
+void			parsing_for_characters(t_game *game);
 
 # define WIDTH 512
 # define HEIGHT 512

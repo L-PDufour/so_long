@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42quebec.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 08:34:45 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/05 14:48:54 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/24 09:09:11 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 100
 # endif
 
 typedef struct s_list

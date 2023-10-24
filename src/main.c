@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 08:44:02 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/23 15:01:23 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/23 20:52:12 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_game	*init_struct(void)
 	}
 	return (game);
 }
+
 int	main(int argc, char *argv[])
 {
 	t_game			*game;
@@ -46,8 +47,11 @@ int	main(int argc, char *argv[])
 		exit_game_at_error("Cant init mlx", game);
 	file_validation(argv[1], game);
 	tex_grass = mlx_load_png("./assets/SproutLands/Tilesets/Grass.png");
+	tex_grass->width = 32;
+	tex_grass->height = 16;
 	img_grass = mlx_texture_to_image(game->mlx, tex_grass);
-	mlx_image_to_window(game->mlx, img_grass, 0, 0);
+	// img_grass->pixels = malloc(4);
+	// mlx_image_to_window(game->mlx, img_grass, 0, 0);
 	mlx_loop(game->mlx);
 	mlx_delete_image(game->mlx, img_grass);
 	mlx_delete_texture(tex_grass);

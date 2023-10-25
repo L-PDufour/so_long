@@ -14,11 +14,10 @@
 
 void	flood_fill(t_game *game, int x, int y, int *collectible)
 {
-	if (x < 1 || x > game->map_coordinates.x || y < 1
-		|| y > game->map_coordinates.y)
+	if (x < 1 || x > game->map_pos.x || y < 1 || y > game->map_pos.y)
 		return ;
 	if (game->nb_exit == 0 && collectible == 0)
-		return;
+		return ;
 	if (game->tmp_map[y][x] == WALL)
 		return ;
 	if (game->tmp_map[y][x] == COLLECTIBLE)
@@ -41,22 +40,7 @@ void	flood_fill_init(t_game *game)
 	i = 0;
 	collectible = game->nb_collectible;
 	game->tmp_map = ft_split(game->tmp, '\n');
-	// printf("%i , %i\n", game->character.x, game->character.y);
-	// while (game->tmp_map[i])
-	// {
-	// 	printf("%s\n", game->tmp_map[i]);
-	// 	i++;
-	// }
 	flood_fill(game, game->character.x, game->character.y, &collectible);
-	// printf("exit =%i, collectible B: %i A: %i\n", game->nb_exit,
-			// game->nb_collectible, collectible);
 	if (game->nb_exit != 0 || collectible != 0)
 		exit_game_at_error("Invalid path", game);
-	// i = 0;
-	// printf("\n");
-	// while (game->tmp_map[i])
-	// {
-	// 	printf("%s\n", game->tmp_map[i]);
-	// 	i++;
-	// }
 }

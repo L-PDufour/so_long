@@ -14,12 +14,12 @@
 
 static char	*ft_free(char **str)
 {
-    if (str && *str)
-    {
-        free(*str);
-        *str = NULL;
-    }
-    return (NULL);
+	if (str && *str)
+	{
+		free(*str);
+		*str = NULL;
+	}
+	return (NULL);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

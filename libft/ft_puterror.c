@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 void	ft_puterror(int function, char *str)
 {
 	if (!str)
 		str = strerror(errno);
 	if (function == -1)
-	{	fprintf(stderr, "Error: %s\n", str);
+	{
+		fprintf(stderr, "Error: %s\n", str);
 		exit(EXIT_FAILURE);
 	}
 }

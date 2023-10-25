@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 08:44:20 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/22 18:15:50 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/25 16:31:12 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,34 @@ static int	map_path_check(char *filename, t_game *game)
 	return (map_path);
 }
 
-
-void	file_validation(char *argv, t_game *game)
+static void	gnl_loop(t_game *game, int map_fd)
 {
 	char	*line;
-	char *tmp;
-	int		map_fd;
 
-	tmp = NULL;
-	map_fd = map_path_check(argv, game);
 	while (1)
 	{
 		line = get_next_line(map_fd);
 		if (line == NULL)
 			break ;
 		game->tmp = ft_strjoin(game->tmp, line);
-		if (game->map_coordinates.x == 0)
+		if (game->map_pos.x == 0)
 		{
-			game->map_coordinates.x = ft_strlen(game->tmp) - 1;
+			game->map_pos.x = ft_strlen(game->tmp) - 1;
 		}
-		game->map_coordinates.y++;
+		game->map_pos.y++;
 		free(line);
 	}
-	game->map_coordinates.y--;
+}
+
+void	file_validation(char *argv, t_game *game)
+{
+	char	*tmp;
+	int		map_fd;
+
+	tmp = NULL;
+	map_fd = map_path_check(argv, game);
+	gnl_loop(game, map_fd);
+	game->map_pos.y--;
 	if (!game->tmp)
 		exit_game_at_error("Empty file", game);
 	parsing_characters(game);

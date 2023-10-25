@@ -6,13 +6,14 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 20:43:38 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/23 08:19:41 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/25 17:08:56 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-static void	check_for_characters(t_game *game, int i, int j, int newline_counter)
+static void	check_for_characters(t_game *game, int i, int j,
+		int newline_counter)
 {
 	if (game->tmp[i] == PLAYER)
 	{
@@ -25,7 +26,7 @@ static void	check_for_characters(t_game *game, int i, int j, int newline_counter
 	else if (game->tmp[i] == EXIT)
 		game->nb_exit++;
 	else if (game->tmp[i] != '\n' && game->tmp[i] != WALL
-			&& game->tmp[i] != FLOOR)
+		&& game->tmp[i] != FLOOR)
 		exit_game_at_error("Invalid characters", game);
 }
 
@@ -33,10 +34,10 @@ static void	check_for_rectangularity(t_game *game, int *i, int *j)
 {
 	if (game->tmp[*i] == '\n' || game->tmp[*i] == '\0')
 	{
-		if (*j != game->map_coordinates.x)
+		if (*j != game->map_pos.x)
 			exit_game_at_error("Map is not rectangular", game);
 		if (game->tmp[*i] == '\n' && game->tmp[*i + 1] != '\0')
-			(*i)++; //
+			(*i)++;
 		*j = 0;
 	}
 }
@@ -51,9 +52,8 @@ static void	check_for_wall(t_game *game, int i, int *newline_counter)
 		if (game->tmp[i - 1] != WALL && game->tmp[i + 1] != WALL)
 			error_has_occured = 1;
 	}
-	else if ((*newline_counter == 0
-				|| *newline_counter == game->map_coordinates.y)
-			&& (game->tmp[i] != WALL && game->tmp[i] != '\n'))
+	else if ((*newline_counter == 0 || *newline_counter == game->map_pos.y)
+		&& (game->tmp[i] != WALL && game->tmp[i] != '\n'))
 		error_has_occured = 1;
 	if (error_has_occured)
 		exit_game_at_error("Map is not walled", game);

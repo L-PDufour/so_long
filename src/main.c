@@ -12,6 +12,23 @@
 
 #include "../include/so_long.h"
 
+void	ft_hook(void *param)
+{
+	t_game	*game;
+
+	game = param;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(game->mlx);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+		game->o.hero_i->instances->y -= 5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+		game->o.hero_i->instances->y += 5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		game->o.hero_i->instances->x -= 5;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		game->o.hero_i->instances->x += 5;
+}
+
 t_game	*init_struct(void)
 {
 	static t_game	*game;
@@ -42,7 +59,7 @@ void	print_maps(t_game *game)
 	y = 0;
 	mlx_set_window_pos(game->mlx, 0, 0);
 	mlx_set_window_size(game->mlx, game->map_pos.x * PIXEL, (game->map_pos.y
-			+ 1) * PIXEL);
+				+ 1) * PIXEL);
 	rendering_textures_to_images(game);
 	while (y <= game->map_pos.y)
 	{
@@ -54,6 +71,8 @@ void	print_maps(t_game *game)
 		}
 		y++;
 	}
+	// game->o.hero_i->instances->z = 1;
+	mlx_loop_hook(game->mlx, &ft_hook, (void *)game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 }

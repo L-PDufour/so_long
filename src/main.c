@@ -6,27 +6,33 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 08:44:02 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/25 17:09:57 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/26 12:32:13 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	ft_hook(void *param)
-{
-	t_game	*game;
+void	ft_hook(mlx_key_data_t keydata, void *param)
 
-	game = param;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+{
+	t_game *game;
+
+	game = (t_game *)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
-		game->o.hero_i->instances->y -= 5;
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-		game->o.hero_i->instances->y += 5;
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		game->o.hero_i->instances->x -= 5;
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		game->o.hero_i->instances->x += 5;
+	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS
+		&& game->movement++)
+		game->o.hero_i->instances->y -= 64;
+	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS
+		&& game->movement++)
+		game->o.hero_i->instances->y += 64;
+	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS
+		&& game->movement++)
+		game->o.hero_i->instances->x -= 64;
+	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_REPEAT
+		&& game->movement++)
+		game->o.hero_i->instances->x += 64;
+	printf("movement = %i\n", game->movement);
 }
 
 t_game	*init_struct(void)
@@ -84,7 +90,7 @@ void	print_maps(t_game *game)
 		}
 		y++;
 	}
-	mlx_loop_hook(game->mlx, &ft_hook, (void *)game);
+	mlx_key_hook(game->mlx, (void *)ft_hook, (void *)game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
 }

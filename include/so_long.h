@@ -84,6 +84,7 @@ typedef struct s_game
 	int				nb_character;
 	int				nb_collectible;
 	int				nb_exit;
+	int				movement;
 	t_position		map_pos;
 	t_position		character;
 	mlx_t			*mlx;

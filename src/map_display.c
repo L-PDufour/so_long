@@ -6,17 +6,16 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:17:36 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/25 16:17:39 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/26 08:21:56 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+#include <limits.h>
 
-static void	render_others(t_game *game, int x, int y)
+void	render_others(t_game *game, int x, int y)
 {
-	if (game->map_array[y][x] == PLAYER)
-		mlx_image_to_window(game->mlx, game->o.hero_i, x * PIXEL, y * PIXEL);
-	else if (game->map_array[y][x] == EXIT)
+	if (game->map_array[y][x] == EXIT)
 		mlx_image_to_window(game->mlx, game->o.exit_i, (x * PIXEL) + 11, y
 			* PIXEL);
 	else if (game->map_array[y][x] == COLLECTIBLE)

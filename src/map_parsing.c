@@ -80,4 +80,6 @@ void	parsing_characters(t_game *game)
 	}
 	if (game->nb_character != 1 || game->nb_exit != 1)
 		exit_game_at_error("Need one exit and one players", game);
+	if (game->map_pos.x > 41 || game->map_pos.y > 21)
+		exit_game_at_error("Map too big, need to be 20x40",game);
 }

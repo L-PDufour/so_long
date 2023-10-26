@@ -19,13 +19,13 @@ void	ft_hook(void *param)
 	game = param;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
 		game->o.hero_i->instances->y -= 5;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 		game->o.hero_i->instances->y += 5;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		game->o.hero_i->instances->x -= 5;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		game->o.hero_i->instances->x += 5;
 }
 
@@ -59,7 +59,7 @@ void	print_maps(t_game *game)
 	y = 0;
 	mlx_set_window_pos(game->mlx, 0, 0);
 	mlx_set_window_size(game->mlx, game->map_pos.x * PIXEL, (game->map_pos.y
-				+ 1) * PIXEL);
+			+ 1) * PIXEL);
 	rendering_textures_to_images(game);
 	while (y <= game->map_pos.y)
 	{
@@ -71,7 +71,19 @@ void	print_maps(t_game *game)
 		}
 		y++;
 	}
-	// game->o.hero_i->instances->z = 1;
+	y = 0;
+	while (y <= game->map_pos.y)
+	{
+		x = 0;
+		while (x < game->map_pos.x)
+		{
+			if (game->map_array[y][x] == PLAYER)
+				mlx_image_to_window(game->mlx, game->o.hero_i, x * PIXEL, y
+					* PIXEL);
+			x++;
+		}
+		y++;
+	}
 	mlx_loop_hook(game->mlx, &ft_hook, (void *)game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);

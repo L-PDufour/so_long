@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 08:44:02 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/27 11:06:12 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/27 14:06:17 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	check_move(t_game *game, char pos, int updated_y, int updated_x)
 	int	player_x;
 	int	map_y;
 	int	map_x;
+	int	y;
+	int	x;
 
 	player_y = game->o.hero_i->instances->y + updated_y;
 	player_x = game->o.hero_i->instances->x + updated_x;
@@ -28,9 +30,18 @@ void	check_move(t_game *game, char pos, int updated_y, int updated_x)
 		return ;
 	else if (game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] == WALL)
 		return ;
-	else if (pos == 'y')
+	if (game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] == COLLECTIBLE)
+	{
+		printf("Collectible\n");
+		mlx_image_to_window(game->mlx, game->f.floor, player_x, player_y);
+		// game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] = '0';
+		// printf("instance = %i", game->o.hero_i->instances->z);
+// creer une fonction qui update le jeu
+		mlx_image_to_window(game->mlx, game->o.hero_i, game->o.hero_i->instances->x, game->o.hero_i->instances->y);
+	}
+	if (pos == 'y')
 		game->o.hero_i->instances->y += updated_y;
-	else if (pos == 'x')
+	if (pos == 'x')
 		game->o.hero_i->instances->x += updated_x;
 	game->movement++;
 }

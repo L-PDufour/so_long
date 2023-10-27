@@ -101,6 +101,7 @@ void				flood_fill_init(t_game *game);
 void				rendering_textures_to_images(t_game *game);
 void				render_images(t_game *game, int x, int y);
 void				render_others(t_game *game, int x, int y);
+void				render_floor_img(t_game *game, int x, int y);
 
 # define WIDTH 256
 # define HEIGHT 256

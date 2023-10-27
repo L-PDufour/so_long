@@ -17,7 +17,7 @@ void	render_others(t_game *game, int x, int y)
 {
 	if (game->map_array[y][x] == EXIT)
 		mlx_image_to_window(game->mlx, game->o.exit_i, (x * PIXEL) + 11, y
-			* PIXEL);
+				* PIXEL);
 	else if (game->map_array[y][x] == COLLECTIBLE)
 		mlx_image_to_window(game->mlx, game->o.item_i, x * PIXEL, y * PIXEL);
 }
@@ -42,7 +42,7 @@ static void	render_wall_img(t_game *game, int x, int y)
 		mlx_image_to_window(game->mlx, game->w.wall_tree, x * PIXEL, y * PIXEL);
 }
 
-static void	render_floor_img(t_game *game, int x, int y)
+void	render_floor_img(t_game *game, int x, int y)
 {
 	if (x == 0 && y == 0)
 		mlx_image_to_window(game->mlx, game->f.nw_floor, x * PIXEL, y * PIXEL);
@@ -66,6 +66,7 @@ static void	render_floor_img(t_game *game, int x, int y)
 
 void	render_images(t_game *game, int x, int y)
 {
+	
 	render_floor_img(game, x, y);
 	if (game->map_array[y][x] == WALL)
 		render_wall_img(game, x, y);

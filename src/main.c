@@ -6,31 +6,55 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 08:44:02 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/27 08:26:19 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/27 11:06:12 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	ft_hook(mlx_key_data_t keydata, void *param)
-
+void	check_move(t_game *game, char pos, int updated_y, int updated_x)
 {
-	t_game *game;
+	int	player_y;
+	int	player_x;
+	int	map_y;
+	int	map_x;
+
+	player_y = game->o.hero_i->instances->y + updated_y;
+	player_x = game->o.hero_i->instances->x + updated_x;
+	map_y = (game->map_pos.y - 1) * PIXEL;
+	map_x = (game->map_pos.x - 2) * PIXEL;
+	if (player_y > map_y || player_y < PIXEL || player_x > map_x
+		|| player_x < PIXEL)
+		return ;
+	else if (game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] == WALL)
+		return ;
+	else if (pos == 'y')
+		game->o.hero_i->instances->y += updated_y;
+	else if (pos == 'x')
+		game->o.hero_i->instances->x += updated_x;
+	game->movement++;
+}
+
+void	ft_hook(mlx_key_data_t keydata, void *param)
+{
+	t_game	*game;
 
 	game = (t_game *)param;
+	// printf("delta%f\n",game->mlx->delta_time);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
-	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS) && game->movement++)
-		game->o.hero_i->instances->y -= 16;
-	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS)
-		&& game->movement++)
-		game->o.hero_i->instances->y += 16;
-	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS)
-		&& game->movement++)
-		game->o.hero_i->instances->x -= 16;
-	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS)
-		&& game->movement++)
-		game->o.hero_i->instances->x += 16;
+	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		check_move(game, 'y', -PIXEL, 0);
+	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		check_move(game, 'y', PIXEL, 0);
+	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		check_move(game, 'x', 0, -PIXEL);
+	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		check_move(game, 'x', 0, PIXEL);
 	printf("movement = %i\n", game->movement);
 }
 
@@ -64,7 +88,7 @@ void	print_maps(t_game *game)
 	y = 0;
 	mlx_set_window_pos(game->mlx, 0, 0);
 	mlx_set_window_size(game->mlx, game->map_pos.x * PIXEL, (game->map_pos.y
-			+ 1) * PIXEL);
+				+ 1) * PIXEL);
 	rendering_textures_to_images(game);
 	while (y <= game->map_pos.y)
 	{
@@ -84,7 +108,7 @@ void	print_maps(t_game *game)
 		{
 			if (game->map_array[y][x] == PLAYER)
 				mlx_image_to_window(game->mlx, game->o.hero_i, x * PIXEL, y
-					* PIXEL);
+						* PIXEL);
 			x++;
 		}
 		y++;

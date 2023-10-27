@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 08:44:02 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/26 12:32:13 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/27 08:26:19 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,17 @@ void	ft_hook(mlx_key_data_t keydata, void *param)
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
-	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS
+	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS) && game->movement++)
+		game->o.hero_i->instances->y -= 16;
+	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS)
 		&& game->movement++)
-		game->o.hero_i->instances->y -= 64;
-	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS
+		game->o.hero_i->instances->y += 16;
+	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS)
 		&& game->movement++)
-		game->o.hero_i->instances->y += 64;
-	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS
+		game->o.hero_i->instances->x -= 16;
+	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS)
 		&& game->movement++)
-		game->o.hero_i->instances->x -= 64;
-	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_REPEAT
-		&& game->movement++)
-		game->o.hero_i->instances->x += 64;
+		game->o.hero_i->instances->x += 16;
 	printf("movement = %i\n", game->movement);
 }
 

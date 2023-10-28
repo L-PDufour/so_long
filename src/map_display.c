@@ -61,12 +61,15 @@ void	render_floor_img(t_game *game, int x, int y)
 	else if (x == 0)
 		mlx_image_to_window(game->mlx, game->f.w_floor, x * PIXEL, y * PIXEL);
 	else
+	{
 		mlx_image_to_window(game->mlx, game->f.floor, x * PIXEL, y * PIXEL);
+		mlx_set_instance_depth(game->f.floor->instances, 100);
+		printf("%i\n", game->f.floor->instances->z);
+	}
 }
 
 void	render_images(t_game *game, int x, int y)
 {
-	
 	render_floor_img(game, x, y);
 	if (game->map_array[y][x] == WALL)
 		render_wall_img(game, x, y);

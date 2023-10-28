@@ -34,10 +34,14 @@ void	check_move(t_game *game, char pos, int updated_y, int updated_x)
 	{
 		printf("Collectible\n");
 		mlx_image_to_window(game->mlx, game->f.floor, player_x, player_y);
+		mlx_set_instance_depth(game->o.item_i->instances, 99);
+		mlx_set_instance_depth(game->f.floor->instances, 100);
+		mlx_set_instance_depth(game->o.hero_i->instances, 1001);
+
 		// game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] = '0';
 		// printf("instance = %i", game->o.hero_i->instances->z);
 // creer une fonction qui update le jeu
-		mlx_image_to_window(game->mlx, game->o.hero_i, game->o.hero_i->instances->x, game->o.hero_i->instances->y);
+		// mlx_image_to_window(game->mlx, game->o.hero_i, game->o.hero_i->instances->x, game->o.hero_i->instances->y);
 	}
 	if (pos == 'y')
 		game->o.hero_i->instances->y += updated_y;
@@ -120,6 +124,7 @@ void	print_maps(t_game *game)
 			if (game->map_array[y][x] == PLAYER)
 				mlx_image_to_window(game->mlx, game->o.hero_i, x * PIXEL, y
 						* PIXEL);
+			// mlx_set_instance_depth(game->o.hero_i->instances, 214748);
 			x++;
 		}
 		y++;

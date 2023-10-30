@@ -22,21 +22,17 @@ static void	render_others_textures(t_game *game)
 	game->o.exit_t = mlx_load_png("./assets/other/exit.png");
 	game->o.hero_i = mlx_texture_to_image(game->mlx, game->o.hero_t);
 	game->o.exit_i = mlx_texture_to_image(game->mlx, game->o.exit_t);
-	game->o.item_i = (mlx_image_t **)malloc(game->nb_collectible * sizeof(mlx_image_t *));
+	game->o.item_i = (mlx_image_t **)malloc(game->nb_collectible
+			* sizeof(mlx_image_t *));
 	if (game->o.item_i == NULL)
-	{
-		// Handle memory allocation failure
-	}
+		exit_game_at_error("Malloc failure", game);
 	else
 	{
 		while (i < game->nb_collectible)
 		{
-			printf("i = %i\n", i);
 			game->o.item_i[i] = (mlx_image_t *)malloc(sizeof(mlx_image_t));
 			if (game->o.item_i[i] == NULL)
-			{
-				// Handle memory allocation failure
-			}
+				exit_game_at_error("Malloc failure", game);
 			game->o.item_i[i] = mlx_texture_to_image(game->mlx, game->o.item_t);
 			i++;
 		}

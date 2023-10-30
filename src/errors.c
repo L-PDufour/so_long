@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 08:08:32 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/19 10:49:27 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/30 13:40:41 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void	free_array(char **array)
 	i = 0;
 	while (array[i] != NULL)
 	{
-		free(array[i]);
+		if (array[i])
+			free(array[i]);
 		i++;
 	}
 	free(array);
@@ -37,6 +38,16 @@ void	free_game_struct(t_game *game)
 		free_array(game->tmp_map);
 	if (game->tmp != NULL)
 		free(game->tmp);
+	if (game->o.item_i != NULL)
+	{
+		while (game->o.item_i[i] != NULL)
+		{
+			free(game->o.item_i[i]);
+			i++;
+		}
+		free(game->o.item_i);
+	}
+	// free(game->mlx);
 	free(game);
 }
 

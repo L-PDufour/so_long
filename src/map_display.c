@@ -5,76 +5,118 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 16:17:36 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/30 10:06:24 by ldufour          ###   ########.fr       */
+/*   Created: 2023/10/30 13:58:17 by ldufour           #+#    #+#             */
+/*   Updated: 2023/10/30 13:58:17 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-#include <limits.h>
 
-void	render_others(t_game *game, int x, int y)
+void	delete_collectible(t_game *game, int player_y, int player_x)
 {
-
-	if (game->map_array[y][x] == EXIT)
-		mlx_image_to_window(game->mlx, game->o.exit_i, (x * PIXEL) + 11, y
-			* PIXEL);
-	else if (game->map_array[y][x] == COLLECTIBLE)
+	game->i = 0;
+	while (game->i < game->nb_collectible)
 	{
-		mlx_image_to_window(game->mlx, game->o.item_i[game->i], x * PIXEL, y * PIXEL);
-		printf("%i\n", game->i);
+		if (game->o.item_i[game->i] != NULL)
+		{
+			if (game->o.item_i[game->i]->instances != NULL
+				&& game->o.item_i[game->i]->instances->y == player_y
+				&& game->o.item_i[game->i]->instances->x == player_x)
+			{
+				mlx_delete_image(game->mlx, game->o.item_i[game->i]);
+				game->o.item_i[game->i] = NULL;
+			}
+		}
 		game->i++;
 	}
 }
 
-static void	render_wall_img(t_game *game, int x, int y)
+void	check_move(t_game *game, char pos, int updated_y, int updated_x)
 {
-	if (x == 0 && y == 0)
-		mlx_image_to_window(game->mlx, game->w.nw_wall, x * PIXEL, y * PIXEL);
-	else if (x == game->map_pos.x - 1 && y == 0)
-		mlx_image_to_window(game->mlx, game->w.ne_wall, x * PIXEL, y * PIXEL);
-	else if (y == 0)
-		mlx_image_to_window(game->mlx, game->w.hw_wall, x * PIXEL, y * PIXEL);
-	else if (x == 0 && y == game->map_pos.y)
-		mlx_image_to_window(game->mlx, game->w.sw_wall, x * PIXEL, y * PIXEL);
-	else if (x == game->map_pos.x - 1 && y == game->map_pos.y)
-		mlx_image_to_window(game->mlx, game->w.se_wall, x * PIXEL, y * PIXEL);
-	else if (x == game->map_pos.x - 1 || x == 0)
-		mlx_image_to_window(game->mlx, game->w.vw_wall, x * PIXEL, y * PIXEL);
-	else if (y == game->map_pos.y)
-		mlx_image_to_window(game->mlx, game->w.hw_wall, x * PIXEL, y * PIXEL);
-	else
-		mlx_image_to_window(game->mlx, game->w.wall_tree, x * PIXEL, y * PIXEL);
+	int	player_y;
+	int	player_x;
+	int	map_y;
+	int	map_x;
+
+	player_y = game->o.hero_i->instances->y + updated_y;
+	player_x = game->o.hero_i->instances->x + updated_x;
+	map_y = (game->map_pos.y - 1) * PIXEL;
+	map_x = (game->map_pos.x - 2) * PIXEL;
+	if (player_y > map_y || player_y < PIXEL || player_x > map_x
+		|| player_x < PIXEL)
+		return ;
+	else if (game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] == WALL)
+		return ;
+	if (game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] == COLLECTIBLE)
+	{
+		delete_collectible(game, player_y, player_x);
+	}
+	if (pos == 'y')
+		game->o.hero_i->instances->y += updated_y;
+	if (pos == 'x')
+		game->o.hero_i->instances->x += updated_x;
+	game->movement++;
 }
 
-void	render_floor_img(t_game *game, int x, int y)
+void	ft_hook(mlx_key_data_t keydata, void *param)
 {
-	if (x == 0 && y == 0)
-		mlx_image_to_window(game->mlx, game->f.nw_floor, x * PIXEL, y * PIXEL);
-	else if (x == game->map_pos.x - 1 && y == 0)
-		mlx_image_to_window(game->mlx, game->f.ne_floor, x * PIXEL, y * PIXEL);
-	else if (y == 0 && x < game->map_pos.x)
-		mlx_image_to_window(game->mlx, game->f.n_floor, x * PIXEL, y * PIXEL);
-	else if (x == 0 && y == game->map_pos.y)
-		mlx_image_to_window(game->mlx, game->f.sw_floor, x * PIXEL, y * PIXEL);
-	else if (x == game->map_pos.x - 1 && y == game->map_pos.y)
-		mlx_image_to_window(game->mlx, game->f.se_floor, x * PIXEL, y * PIXEL);
-	else if (y == game->map_pos.y && x < game->map_pos.x)
-		mlx_image_to_window(game->mlx, game->f.so_floor, x * PIXEL, y * PIXEL);
-	else if (x == game->map_pos.x - 1)
-		mlx_image_to_window(game->mlx, game->f.e_floor, x * PIXEL, y * PIXEL);
-	else if (x == 0)
-		mlx_image_to_window(game->mlx, game->f.w_floor, x * PIXEL, y * PIXEL);
-	else
-		mlx_image_to_window(game->mlx, game->f.floor, x * PIXEL, y * PIXEL);
+	t_game	*game;
+
+	game = (t_game *)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(game->mlx);
+	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		check_move(game, 'y', -PIXEL, 0);
+	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		check_move(game, 'y', PIXEL, 0);
+	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		check_move(game, 'x', 0, -PIXEL);
+	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
+		check_move(game, 'x', 0, PIXEL);
+	printf("movement = %i\n", game->movement);
 }
 
-void	render_images(t_game *game, int x, int y)
+void	display_image(t_game *game)
 {
-	static int i;
+	game->j = -1;
+	while (++game->j <= game->map_pos.y)
+	{
+		game->i = -1;
+		while (++game->i < game->map_pos.x)
+		{
+			render_images(game, game->i, game->j);
+		}
+	}
+	game->j = -1;
+	while (++game->j <= game->map_pos.y)
+	{
+		game->i = -1;
+		while (++game->i < game->map_pos.x)
+		{
+			if (game->map_array[game->j][game->i] == PLAYER)
+				mlx_image_to_window(game->mlx, game->o.hero_i, game->i * PIXEL,
+					game->j * PIXEL);
+		}
+	}
+}
 
-	render_floor_img(game, x, y);
-	if (game->map_array[y][x] == WALL)
-		render_wall_img(game, x, y);
-	render_others(game, x, y);
+void	print_maps(t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	mlx_set_window_pos(game->mlx, 0, 0);
+	mlx_set_window_size(game->mlx, game->map_pos.x * PIXEL, (game->map_pos.y
+			+ 1) * PIXEL);
+	rendering_textures_to_images(game);
+	display_image(game);
+	mlx_key_hook(game->mlx, (void *)ft_hook, (void *)game);
+	mlx_loop(game->mlx);
+	mlx_terminate(game->mlx);
 }

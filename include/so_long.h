@@ -92,6 +92,8 @@ typedef struct s_game
 	t_wall			w;
 	t_others		o;
 	int				i;
+	int				j;
+	int				k;
 }					t_game;
 
 void				file_validation(char *argv, t_game *game);
@@ -103,7 +105,7 @@ void				rendering_textures_to_images(t_game *game);
 void				render_images(t_game *game, int x, int y);
 void				render_others(t_game *game, int x, int y);
 void				render_floor_img(t_game *game, int x, int y);
-
+void				print_maps(t_game *game);
 # define WIDTH 256
 # define HEIGHT 256
 # define WALL '1'

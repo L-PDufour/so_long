@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:17:36 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/26 08:21:56 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/30 10:06:24 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 
 void	render_others(t_game *game, int x, int y)
 {
+
 	if (game->map_array[y][x] == EXIT)
 		mlx_image_to_window(game->mlx, game->o.exit_i, (x * PIXEL) + 11, y
-				* PIXEL);
+			* PIXEL);
 	else if (game->map_array[y][x] == COLLECTIBLE)
-		mlx_image_to_window(game->mlx, game->o.item_i, x * PIXEL, y * PIXEL);
+	{
+		mlx_image_to_window(game->mlx, game->o.item_i[game->i], x * PIXEL, y * PIXEL);
+		printf("%i\n", game->i);
+		game->i++;
+	}
 }
 
 static void	render_wall_img(t_game *game, int x, int y)
@@ -61,15 +66,13 @@ void	render_floor_img(t_game *game, int x, int y)
 	else if (x == 0)
 		mlx_image_to_window(game->mlx, game->f.w_floor, x * PIXEL, y * PIXEL);
 	else
-	{
 		mlx_image_to_window(game->mlx, game->f.floor, x * PIXEL, y * PIXEL);
-		mlx_set_instance_depth(game->f.floor->instances, 100);
-		printf("%i\n", game->f.floor->instances->z);
-	}
 }
 
 void	render_images(t_game *game, int x, int y)
 {
+	static int i;
+
 	render_floor_img(game, x, y);
 	if (game->map_array[y][x] == WALL)
 		render_wall_img(game, x, y);

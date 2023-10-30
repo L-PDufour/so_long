@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 08:44:02 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/27 14:06:17 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/10/30 08:22:18 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,20 @@ void	check_move(t_game *game, char pos, int updated_y, int updated_x)
 		return ;
 	if (game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] == COLLECTIBLE)
 	{
-		printf("Collectible\n");
-		mlx_image_to_window(game->mlx, game->f.floor, player_x, player_y);
-		mlx_set_instance_depth(game->o.item_i->instances, 99);
-		mlx_set_instance_depth(game->f.floor->instances, 100);
-		mlx_set_instance_depth(game->o.hero_i->instances, 1001);
-
-		// game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] = '0';
-		// printf("instance = %i", game->o.hero_i->instances->z);
-// creer une fonction qui update le jeu
-		// mlx_image_to_window(game->mlx, game->o.hero_i, game->o.hero_i->instances->x, game->o.hero_i->instances->y);
+		game->i = 0;
+		while (game->i < game->nb_collectible)
+		{
+			if (game->o.item_i[game->i] != NULL)
+			{
+				if (game->o.item_i[game->i]->instances != NULL && game->o.item_i[game->i]->instances->y == player_y
+					&& game->o.item_i[game->i]->instances->x == player_x)
+				{
+					mlx_delete_image(game->mlx, game->o.item_i[game->i]);
+					game->o.item_i[game->i] = NULL;
+				}
+			}
+			game->i++;
+		}
 	}
 	if (pos == 'y')
 		game->o.hero_i->instances->y += updated_y;
@@ -103,7 +107,7 @@ void	print_maps(t_game *game)
 	y = 0;
 	mlx_set_window_pos(game->mlx, 0, 0);
 	mlx_set_window_size(game->mlx, game->map_pos.x * PIXEL, (game->map_pos.y
-				+ 1) * PIXEL);
+			+ 1) * PIXEL);
 	rendering_textures_to_images(game);
 	while (y <= game->map_pos.y)
 	{
@@ -123,8 +127,7 @@ void	print_maps(t_game *game)
 		{
 			if (game->map_array[y][x] == PLAYER)
 				mlx_image_to_window(game->mlx, game->o.hero_i, x * PIXEL, y
-						* PIXEL);
-			// mlx_set_instance_depth(game->o.hero_i->instances, 214748);
+					* PIXEL);
 			x++;
 		}
 		y++;
@@ -145,7 +148,9 @@ int	main(int argc, char *argv[])
 	if (!game->mlx)
 		exit_game_at_error("Cant init mlx", game);
 	file_validation(argv[1], game);
+	printf("%i\n", game->nb_collectible);
 	print_maps(game);
+	// printf("%i\n", game->nb_collectible);
 	free_game_struct(game);
 	return (0);
 }

@@ -27,8 +27,8 @@ typedef struct s_others
 	mlx_texture_t	*item_t;
 	mlx_texture_t	*exit_t;
 	mlx_image_t		*hero_i;
-	mlx_image_t		*item_i;
 	mlx_image_t		*exit_i;
+	mlx_image_t		**item_i;
 }					t_others;
 
 typedef struct s_floor
@@ -91,6 +91,7 @@ typedef struct s_game
 	t_floor			f;
 	t_wall			w;
 	t_others		o;
+	int				i;
 }					t_game;
 
 void				file_validation(char *argv, t_game *game);

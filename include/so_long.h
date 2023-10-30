@@ -94,6 +94,7 @@ typedef struct s_game
 	int				i;
 	int				j;
 	int				k;
+	int				item_count;
 }					t_game;
 
 void				file_validation(char *argv, t_game *game);

@@ -14,8 +14,9 @@
 
 void	delete_collectible(t_game *game, int player_y, int player_x)
 {
+	
 	game->i = 0;
-	while (game->i < game->nb_collectible)
+	while (game->i < game->nb_collectible) 
 	{
 		if (game->o.item_i[game->i] != NULL)
 		{
@@ -25,6 +26,7 @@ void	delete_collectible(t_game *game, int player_y, int player_x)
 			{
 				mlx_delete_image(game->mlx, game->o.item_i[game->i]);
 				game->o.item_i[game->i] = NULL;
+				game->item_count++;
 			}
 		}
 		game->i++;
@@ -48,9 +50,9 @@ void	check_move(t_game *game, char pos, int updated_y, int updated_x)
 	else if (game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] == WALL)
 		return ;
 	if (game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] == COLLECTIBLE)
-	{
 		delete_collectible(game, player_y, player_x);
-	}
+	if (game->map_array[(player_y / PIXEL)][(player_x / PIXEL)] == EXIT && game->nb_collectible == game->item_count)
+		mlx_close_window(game->mlx);
 	if (pos == 'y')
 		game->o.hero_i->instances->y += updated_y;
 	if (pos == 'x')

@@ -47,7 +47,6 @@ void	free_game_struct(t_game *game)
 		}
 		free(game->o.item_i);
 	}
-	free(game->mlx);
 	free(game);
 }
 

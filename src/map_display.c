@@ -63,7 +63,8 @@ void	check_move(t_game *game, char pos, int updated_y, int updated_x)
 void	ft_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
-
+	mlx_image_t *str;
+	char *number;
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);

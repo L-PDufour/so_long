@@ -40,10 +40,10 @@ int	main(int argc, char *argv[])
 	game = init_struct();
 	if (argc != 2)
 		printf("Invalid arguments\n");
+	file_validation(argv[1], game);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "So Long", true);
 	if (!game->mlx)
 		exit_game_at_error("Cant init mlx", game);
-	file_validation(argv[1], game);
 	print_maps(game);
 	free_game_struct(game);
 	return (0);

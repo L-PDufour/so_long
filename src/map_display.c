@@ -57,14 +57,13 @@ void	check_move(t_game *game, char pos, int updated_y, int updated_x)
 		game->o.hero_i->instances->y += updated_y;
 	if (pos == 'x')
 		game->o.hero_i->instances->x += updated_x;
-	game->movement++;
+	printf("movement = %i\n", game->movement++);
 }
 
 void	ft_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
-	mlx_image_t *str;
-	char *number;
+
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(game->mlx);
@@ -80,7 +79,6 @@ void	ft_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT
 			|| keydata.action == MLX_PRESS))
 		check_move(game, 'x', 0, PIXEL);
-	printf("movement = %i\n", game->movement);
 }
 
 void	display_image(t_game *game)
@@ -121,5 +119,4 @@ void	print_maps(t_game *game)
 	display_image(game);
 	mlx_key_hook(game->mlx, (void *)ft_hook, (void *)game);
 	mlx_loop(game->mlx);
-	mlx_terminate(game->mlx);
 }

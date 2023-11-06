@@ -30,9 +30,6 @@ static void	render_others_textures(t_game *game)
 	{
 		while (i < game->nb_collectible)
 		{
-			game->o.item_i[i] = (mlx_image_t *)malloc(sizeof(mlx_image_t));
-			if (game->o.item_i[i] == NULL)
-				exit_game_at_error("Malloc failure", game);
 			game->o.item_i[i] = mlx_texture_to_image(game->mlx, game->o.item_t);
 			i++;
 		}

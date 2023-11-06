@@ -38,15 +38,6 @@ void	free_game_struct(t_game *game)
 		free_array(game->tmp_map);
 	if (game->tmp != NULL)
 		free(game->tmp);
-	if (game->o.item_i != NULL)
-	{
-		while (game->o.item_i[i] != NULL)
-		{
-			free(game->o.item_i[i]);
-			i++;
-		}
-		free(game->o.item_i);
-	}
 	free(game);
 }
 
@@ -55,6 +46,8 @@ void	exit_game_at_error(char *str, t_game *game)
 	printf("Error\n");
 	if (str)
 		printf("%s\n", str);
+	if (game->mlx)
+		mlx_terminate(game->mlx);
 	free_game_struct(game);
 	exit(EXIT_FAILURE);
 }

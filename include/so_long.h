@@ -26,9 +26,11 @@ typedef struct s_others
 	mlx_texture_t	*hero_t;
 	mlx_texture_t	*item_t;
 	mlx_texture_t	*exit_t;
+	mlx_texture_t	*enemy_t;
 	mlx_image_t		*hero_i;
 	mlx_image_t		*exit_i;
 	mlx_image_t		**item_i;
+	mlx_image_t		*enemy_i;
 }					t_others;
 
 typedef struct s_floor
@@ -88,6 +90,7 @@ typedef struct s_game
 	t_position		map_pos;
 	t_position		character;
 	mlx_t			*mlx;
+	mlx_image_t		*move_display;
 	t_floor			f;
 	t_wall			w;
 	t_others		o;
@@ -107,6 +110,7 @@ void				render_images(t_game *game, int x, int y);
 void				render_others(t_game *game, int x, int y);
 void				render_floor_img(t_game *game, int x, int y);
 void				print_maps(t_game *game);
+void	flood_fill_enemy(t_game *game);
 # define WIDTH 256
 # define HEIGHT 256
 # define WALL '1'

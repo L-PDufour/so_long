@@ -6,7 +6,7 @@
 #    By: ldufour <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/19 11:01:10 by ldufour           #+#    #+#              #
-#    Updated: 2023/11/06 12:29:34 by ldufour          ###   ########.fr        #
+#    Updated: 2023/11/06 13:53:24 by ldufour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,13 +27,13 @@ SRCS	:= src/errors.c \
 	   src/textures.c 
 
 SRCS_B	:= src/errors.c \
-	   src/flood_fill.c \
-	   src/images.c \
-	   src/main.c \
-	   src/map_display.c \
-	   src/map_parsing.c \
+	   bonus/flood_fill_bonus.c \
+	   bonus/images_bonus.c \
+	   bonus/main.c \
+	   bonus/map_display_bonus.c \
+	   bonus/map_parsing_bonus.c \
 	   src/maps.c \
-	   src/textures.c 
+	   bonus/textures_bonus.c 
 
 MAPS	:= maps/.bigmap.ber \
 	   maps/empty.ber \
@@ -71,12 +71,12 @@ $(NAME_B): $(OBJS_B)
 		$(CC) $(OBJS_B) $(LIBFT) $(LIBS) $(HEADERS) -o $(NAME_B)
 clean:	
 		@cd libft && make clean
-		@rm -rf $(OBJS)
+		@rm -rf $(OBJS) $(OBJS_B) 
 		@rm -rf $(LIBMLX)/build 
 
 fclean:	clean
 		@cd libft && make fclean
-		rm -f $(NAME) 
+		rm -f $(NAME) $(NAME_B) 
 
 test: all
 	@for file in $(MAPS); do \

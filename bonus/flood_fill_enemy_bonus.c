@@ -1,12 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
+<<<<<<< HEAD
 /*   flood_fill_enemy_bonus.c                           :+:      :+:    :+:   */
+=======
+/*   flood_fill_bonus.c                                 :+:      :+:    :+:   */
+>>>>>>> 2a8ebb7... added bonus pathfinding
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:52:44 by ldufour           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/15 08:09:11 by ldufour          ###   ########.fr       */
+=======
+/*   Updated: 2023/11/06 13:52:44 by ldufour          ###   ########.fr       */
+>>>>>>> 2a8ebb7... added bonus pathfinding
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +91,10 @@ void	flood_fill(t_game *game, int x, int y, int *collectible)
 
 void	flood_fill_init(t_game *game)
 {
+<<<<<<< HEAD
+=======
+	char		**tmp_map;
+>>>>>>> 2a8ebb7... added bonus pathfinding
 	int			i;
 	static int	collectible;
 

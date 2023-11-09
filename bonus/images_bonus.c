@@ -16,13 +16,11 @@ void	render_others(t_game *game, int x, int y)
 {
 	if (game->map_array[y][x] == EXIT)
 		mlx_image_to_window(game->mlx, game->o.exit_i, (x * PIXEL) + 11, y
-				* PIXEL);
-	else if (game->map_array[y][x] == 'e')
-		mlx_image_to_window(game->mlx, game->o.enemy_i, x * PIXEL, y * PIXEL);
+			* PIXEL);
 	else if (game->map_array[y][x] == COLLECTIBLE)
 	{
 		mlx_image_to_window(game->mlx, game->o.item_i[game->k], x * PIXEL, y
-				* PIXEL);
+			* PIXEL);
 		game->k++;
 	}
 }

@@ -110,7 +110,10 @@ void				render_images(t_game *game, int x, int y);
 void				render_others(t_game *game, int x, int y);
 void				render_floor_img(t_game *game, int x, int y);
 void				print_maps(t_game *game);
-void	flood_fill_enemy(t_game *game);
+// Bonus
+void	pathfinding(t_game *game, int player_y, int player_x);
+void	do_move(t_game *game, char pos, int updated_y, int updated_x);
+
 # define WIDTH 256
 # define HEIGHT 256
 # define WALL '1'

@@ -6,7 +6,7 @@
 #    By: ldufour <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/19 11:01:10 by ldufour           #+#    #+#              #
-#    Updated: 2023/11/06 13:53:24 by ldufour          ###   ########.fr        #
+#    Updated: 2023/11/09 11:15:54 by ldufour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS	:= src/errors.c \
 	   src/textures.c 
 
 SRCS_B	:= src/errors.c \
-	   bonus/flood_fill_bonus.c \
+	   bonus/move.c \
+	   bonus/flood_fill_enemy_bonus.c \
 	   bonus/images_bonus.c \
 	   bonus/main.c \
 	   bonus/map_display_bonus.c \
@@ -48,6 +49,8 @@ MAPS	:= maps/.bigmap.ber \
 	   maps/invalid_wall2.ber \
 	   maps/invalid_wall_rectangle.ber \
 	   maps/invalid_wall_rectangle2.ber \
+	   maps/valid_bonus2.ber \
+	   maps/valid_bonus.ber \
 	   maps/valid.ber \
 	   maps/valid2.ber 
 	

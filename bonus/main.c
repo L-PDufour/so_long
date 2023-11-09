@@ -33,6 +33,7 @@ static void	clean_textures(t_game *game)
 	mlx_delete_texture(game->o.hero_t);
 	mlx_delete_texture(game->o.item_t);
 	mlx_delete_texture(game->o.exit_t);
+	mlx_delete_texture(game->o.enemy_t);
 }
 
 static void	clean_mlx(t_game *game)

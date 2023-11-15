@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 08:31:50 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/19 20:53:41 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/11/15 08:18:30 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,11 @@ typedef struct s_game
 	t_position		map_pos;
 	t_position		character;
 	mlx_t			*mlx;
-	mlx_image_t		*move_display;
 	t_floor			f;
 	t_wall			w;
 	t_others		o;
+	mlx_image_t		*move_display;
+	int enemy_count;
 	int				i;
 	int				j;
 	int				k;

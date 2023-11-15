@@ -15,7 +15,6 @@
 static void	ft_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
-	char	*str;
 
 	game = (t_game *)param;
 	if (game->o.hero_i->instances->y == game->o.enemy_i->instances->y

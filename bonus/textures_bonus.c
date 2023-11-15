@@ -67,7 +67,7 @@ static void	render_floor_textures(t_game *game)
 	game->f.sw_floor_t = mlx_load_png("./assets/floor/swf.png");
 	game->f.s_floor_t = mlx_load_png("./assets/floor/sf.png");
 	game->f.se_floor_t = mlx_load_png("./assets/floor/sef.png");
-	game->f.nw_floor = mlx_texture_to_image(game->mlx, game->f.nw_floor_t);
+	// game->f.nw_floor = mlx_texture_to_image(game->mlx, game->f.nw_floor_t);
 	game->f.n_floor = mlx_texture_to_image(game->mlx, game->f.n_floor_t);
 	game->f.ne_floor = mlx_texture_to_image(game->mlx, game->f.ne_floor_t);
 	game->f.w_floor = mlx_texture_to_image(game->mlx, game->f.w_floor_t);

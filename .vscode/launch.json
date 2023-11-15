@@ -8,13 +8,13 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/ldufour/Documents/so_long/so_long",
-            "args": ["/home/ldufour/Documents/so_long/maps/.bigmap.ber"],
+            "program": "/Users/ldufour/Documents/so_long/so_long_bonus",
+            "args": ["/Users/ldufour/Documents/so_long/maps/valid_bonus.ber"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
-            "MIMode": "gdb",
+            "MIMode": "lldb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",

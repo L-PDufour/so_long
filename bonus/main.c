@@ -76,7 +76,6 @@ t_game	*init_struct(void)
 int	main(int argc, char *argv[])
 {
 	t_game	*game;
-	int		i;
 
 	if (argc != 2)
 	{

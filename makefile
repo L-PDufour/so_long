@@ -6,13 +6,13 @@
 #    By: ldufour <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/19 11:01:10 by ldufour           #+#    #+#              #
-#    Updated: 2023/11/09 11:15:54 by ldufour          ###   ########.fr        #
+#    Updated: 2023/11/15 08:11:57 by ldufour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= so_long
 NAME_B = so_long_bonus
-CFLAGS	:= -Wunreachable-code -Ofast -g 
+CFLAGS	:=  -Wall -Wextra -Werror -Wunreachable-code -Ofast -g
 LIBMLX	:= ./lib/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
@@ -33,7 +33,7 @@ SRCS_B	:= src/errors.c \
 	   bonus/main.c \
 	   bonus/map_display_bonus.c \
 	   bonus/map_parsing_bonus.c \
-	   src/maps.c \
+	   bonus/maps_bonus.c \
 	   bonus/textures_bonus.c 
 
 MAPS	:= maps/.bigmap.ber \

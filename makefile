@@ -6,7 +6,7 @@
 #    By: ldufour <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/19 11:01:10 by ldufour           #+#    #+#              #
-#    Updated: 2023/11/15 08:11:57 by ldufour          ###   ########.fr        #
+#    Updated: 2023/11/15 11:58:11 by ldufour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS_B	:= src/errors.c \
 	   bonus/move.c \
 	   bonus/flood_fill_enemy_bonus.c \
 	   bonus/images_bonus.c \
-	   bonus/main.c \
+	   bonus/main_bonus.c \
 	   bonus/map_display_bonus.c \
 	   bonus/map_parsing_bonus.c \
 	   bonus/maps_bonus.c \
@@ -59,7 +59,7 @@ OBJS_B	= ${SRCS_B:.c=.o}
 LIBFT	= libft/libft.a
 VALGRIND = valgrind
 all: libmlx $(NAME)
-bonus: libmlx $(NAME_B)
+bonus: all libmlx $(NAME_B)
 	
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4

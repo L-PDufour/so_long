@@ -6,7 +6,7 @@
 /*   By: ldufour <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 08:31:50 by ldufour           #+#    #+#             */
-/*   Updated: 2023/10/19 20:53:41 by ldufour          ###   ########.fr       */
+/*   Updated: 2023/11/15 10:01:42 by ldufour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ typedef struct s_others
 	mlx_texture_t	*hero_t;
 	mlx_texture_t	*item_t;
 	mlx_texture_t	*exit_t;
+	mlx_texture_t	*enemy_t;
 	mlx_image_t		*hero_i;
 	mlx_image_t		*exit_i;
 	mlx_image_t		**item_i;
+	mlx_image_t		*enemy_i;
 }					t_others;
 
 typedef struct s_floor
@@ -91,6 +93,8 @@ typedef struct s_game
 	t_floor			f;
 	t_wall			w;
 	t_others		o;
+	mlx_image_t		*move_display;
+	int enemy_count;
 	int				i;
 	int				j;
 	int				k;
@@ -107,6 +111,10 @@ void				render_images(t_game *game, int x, int y);
 void				render_others(t_game *game, int x, int y);
 void				render_floor_img(t_game *game, int x, int y);
 void				print_maps(t_game *game);
+// Bonus
+void	pathfinding(t_game *game, int player_y, int player_x);
+void	do_move(t_game *game, char pos, int updated_y, int updated_x);
+
 # define WIDTH 256
 # define HEIGHT 256
 # define WALL '1'

@@ -12,7 +12,7 @@
 
 #include "../include/so_long.h"
 
-void	flood_fill(t_game *game, int x, int y, int *collectible)
+static void	flood_fill(t_game *game, int x, int y, int *collectible)
 {
 	if (x < 1 || x > game->map_pos.x || y < 1 || y > game->map_pos.y)
 		return ;

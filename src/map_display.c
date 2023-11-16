@@ -107,11 +107,6 @@ void	display_image(t_game *game)
 
 void	print_maps(t_game *game)
 {
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
 	mlx_set_window_pos(game->mlx, 0, 0);
 	mlx_set_window_size(game->mlx, game->map_pos.x * PIXEL, (game->map_pos.y
 			+ 1) * PIXEL);

@@ -29,9 +29,6 @@ static void	free_array(char **array)
 
 void	free_game_struct(t_game *game)
 {
-	int	i;
-
-	i = 0;
 	if (game->map_array)
 		free_array(game->map_array);
 	if (game->tmp_map)

@@ -11,7 +11,6 @@
 # **************************************************************************** #
 
 NAME	= so_long
-NAME_B = so_long_bonus
 CFLAGS	:=  -Wall -Wextra -Werror -Wunreachable-code -Ofast -g
 LIBMLX	:= ./lib/MLX42
 
@@ -26,16 +25,6 @@ SRCS	:= src/errors.c \
 	   src/maps.c \
 	   src/textures.c 
 
-SRCS_B	:= src/errors.c \
-	   bonus/move.c \
-	   bonus/flood_fill_enemy_bonus.c \
-	   bonus/images_bonus.c \
-	   bonus/main_bonus.c \
-	   bonus/map_display_bonus.c \
-	   bonus/map_parsing_bonus.c \
-	   bonus/maps_bonus.c \
-	   bonus/textures_bonus.c 
-
 MAPS	:= maps/.bigmap.ber \
 	   maps/empty.ber \
 	   maps/invalid_char.ber \
@@ -49,17 +38,13 @@ MAPS	:= maps/.bigmap.ber \
 	   maps/invalid_wall2.ber \
 	   maps/invalid_wall_rectangle.ber \
 	   maps/invalid_wall_rectangle2.ber \
-	   maps/valid_bonus2.ber \
-	   maps/valid_bonus.ber \
 	   maps/valid.ber \
 	   maps/valid2.ber 
 	
 OBJS	= ${SRCS:.c=.o}
-OBJS_B	= ${SRCS_B:.c=.o}
 LIBFT	= libft/libft.a
 VALGRIND = valgrind
 all: libmlx $(NAME)
-bonus: all libmlx $(NAME_B)
 	
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
@@ -69,17 +54,14 @@ libmlx:
 $(NAME): $(OBJS)
 		cd libft && make
 		$(CC) $(OBJS) $(LIBFT) $(LIBS) $(HEADERS) -o $(NAME)
-$(NAME_B): $(OBJS_B)
-		cd libft && make
-		$(CC) $(OBJS_B) $(LIBFT) $(LIBS) $(HEADERS) -o $(NAME_B)
 clean:	
 		@cd libft && make clean
-		@rm -rf $(OBJS) $(OBJS_B) 
+		@rm -rf $(OBJS) 
 		@rm -rf $(LIBMLX)/build 
 
 fclean:	clean
 		@cd libft && make fclean
-		rm -f $(NAME) $(NAME_B) 
+		rm -f $(NAME) 
 
 test: all
 	@for file in $(MAPS); do \

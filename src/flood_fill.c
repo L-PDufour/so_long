@@ -33,10 +33,8 @@ static void	flood_fill(t_game *game, int x, int y, int *collectible)
 
 void	flood_fill_init(t_game *game)
 {
-	int			i;
 	static int	collectible;
 
-	i = 0;
 	collectible = game->nb_collectible;
 	game->tmp_map = ft_split(game->tmp, '\n');
 	flood_fill(game, game->character.x, game->character.y, &collectible);

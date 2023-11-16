@@ -6,12 +6,12 @@
 #    By: ldufour <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/19 11:01:10 by ldufour           #+#    #+#              #
-#    Updated: 2023/11/15 13:01:01 by ldufour          ###   ########.fr        #
+#    Updated: 2023/11/15 20:15:59 by ldufour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= so_long
-CFLAGS	:=  -Wall -Wextra -Werror -Wunreachable-code -Ofast -g
+CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast -g 
 LIBMLX	:= ./lib/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include

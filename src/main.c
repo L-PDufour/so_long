@@ -60,7 +60,7 @@ t_game	*init_struct(void)
 		game = (t_game *)ft_calloc(1, sizeof(t_game));
 		if (!game)
 		{
-			fprintf(stderr, "Malloc failure\n");
+			printf("Malloc failure\n");
 			exit(EXIT_FAILURE);
 		}
 		ft_bzero(game, sizeof(*game));

@@ -6,12 +6,12 @@
 #    By: ldufour <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/19 11:01:10 by ldufour           #+#    #+#              #
-#    Updated: 2023/11/15 20:15:59 by ldufour          ###   ########.fr        #
+#    Updated: 2023/11/17 07:55:26 by ldufour          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= so_long
-CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast -g 
+CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast 
 LIBMLX	:= ./lib/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
@@ -30,7 +30,6 @@ MAPS	:= maps/.bigmap.ber \
 	   maps/invalid_char.ber \
 	   maps/invalid_char2.ber \
 	   maps/invalid_name..ber \
-	   maps/invalid_name.bre \
 	   maps/invalid_path.ber \
 	   maps/invalid_path2.ber \
 	   maps/invalid_path3.ber \
